@@ -83,24 +83,24 @@ Ouvrez votre navigateur et accédez à http://localhost:4200.
 
 Voici un aperçu de la structure du projet :
 
-```plaintext
-todoappz/
-├── src/
-│   ├── app/
-│   │   ├── components/
-│   │   │   ├── auth/
-│   │   │   │   ├── login.component.ts
-│   │   │   │   ├── register.component.ts
-│   │   │   ├── shared/
-│   │   │   │   ├── toolbar.component.ts
-│   │   │   ├── todo/
-│   │   │   │   ├── todo.component.ts
-│   ├── assets/
-│   ├── environments/
-│   ├── index.html
-│   ├── main.ts
-├── angular.json
-├── package.json
+      ```plaintext
+      todoappz/
+      ├── src/
+      │   ├── app/
+      │   │   ├── components/
+      │   │   │   ├── auth/
+      │   │   │   │   ├── login.component.ts
+      │   │   │   │   ├── register.component.ts
+      │   │   │   ├── shared/
+      │   │   │   │   ├── toolbar.component.ts
+      │   │   │   ├── todo/
+      │   │   │   │   ├── todo.component.ts
+      │   ├── assets/
+      │   ├── environments/
+      │   ├── index.html
+      │   ├── main.ts
+      ├── angular.json
+      ├── package.json
 
 ## Technologies utilisées
 
