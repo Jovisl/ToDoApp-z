@@ -1,4 +1,4 @@
-Bienvenue dans **TodoApp'Z**, un projet de gestion de tâches réalisé en Angular ! Ce projet a été conçu pour vous aider à comprendre les bases du développement avec Angular en mettant en œuvre une application simple mais fonctionnelle. Vous y trouverez des fonctionnalités courantes telles que l'ajout, la modification, la validation et la suppression de tâches. 
+Bienvenue dans **TodoApp'Z**, un projet de gestion de tâches réalisé en Angular ! Ce projet a été conçu pour comprendre les bases du développement avec Angular en mettant en œuvre une application simple mais fonctionnelle. Vous y trouverez des fonctionnalités courantes telles que l'ajout, la modification, la validation et la suppression de tâches. Le projet a été réalisé dans le cadre d'études en informatique.
 
 ## Table des matières
 
