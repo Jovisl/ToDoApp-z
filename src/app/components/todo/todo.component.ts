@@ -8,6 +8,7 @@ interface Todo {
   title: string;
   completed: boolean;
   editable: boolean;
+  dueDate?: Date;
 }
 
 @Component({
@@ -20,24 +21,26 @@ interface Todo {
       <h2>Mes Tâches</h2>
       <form [formGroup]="todoForm" (ngSubmit)="addTodo()">
         <input type="text" formControlName="title" placeholder="Nouvelle tâche" />
+        <input type="date" formControlName="dueDate" />
+        <input type="time" formControlName="dueTime" />
         <button type="submit" [disabled]="todoForm.invalid">Ajouter</button>
       </form>
       <ul class="todo-list">
         <li *ngFor="let todo of todos" [class.completed]="todo.completed">
-          <span *ngIf="!todo.editable">{{ todo.title }}</span>
+          <span *ngIf="!todo.editable">{{ todo.title }} - {{ todo.dueDate | date:'short' }}</span>
           <input *ngIf="todo.editable" [(ngModel)]="todo.title" />
-          <button *ngIf="!todo.completed && !todo.editable" (click)="markAsCompleted(todo)">Valider</button>
-          <button *ngIf="todo.completed && !todo.editable" (click)="unmarkAsCompleted(todo)">Annuler</button>
-          <button *ngIf="!todo.editable" (click)="toggleEditable(todo)">Modifier</button>
-          <button *ngIf="todo.editable" (click)="saveChanges(todo)">Enregistrer</button>
-          <button (click)="deleteTodo(todo.id)">Supprimer</button>
+          <button *ngIf="!todo.completed && !todo.editable" (click)="markAsCompleted(todo)" class="btn-validate">Finito</button>
+          <button *ngIf="todo.completed && !todo.editable" (click)="unmarkAsCompleted(todo)" class="btn-unvalidate">Pas finito</button>
+          <button *ngIf="!todo.editable" (click)="toggleEditable(todo)" class="btn-edit">Modifier</button>
+          <button *ngIf="todo.editable" (click)="saveChanges(todo)" class="btn-save">Enregistrer</button>
+          <button (click)="deleteTodo(todo.id)" class="btn-delete">Supprimer</button>
         </li>
       </ul>
     </div>
   `,
   styles: [`
     .todo-container {
-      max-width: 500px;
+      max-width: 800px;
       margin: 50px auto;
       padding: 20px;
       background-color: #f7f7f7;
@@ -57,12 +60,21 @@ interface Todo {
       margin-bottom: 20px;
     }
 
-    form input {
+    form input[type="text"] {
+      flex: 2;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    form input[type="date"], form input[type="time"] {
       flex: 1;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 1rem;
+      margin-left: 10px;
     }
 
     form button {
@@ -91,7 +103,7 @@ interface Todo {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px;
+      padding: 15px;
       background-color: white;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -106,7 +118,6 @@ interface Todo {
     .todo-list li button {
       margin-left: 10px;
       padding: 5px 10px;
-      background-color: #e74c3c;
       border: none;
       border-radius: 5px;
       color: white;
@@ -114,40 +125,48 @@ interface Todo {
       transition: background-color 0.3s;
     }
 
-    .todo-list li button:hover {
-      background-color: #c0392b;
-    }
-
     .todo-list li input[type="text"] {
       flex: 1;
       margin-right: 10px;
     }
 
-    .todo-list li button:nth-child(3) {
+    .btn-validate {
       background-color: #2ecc71;
     }
 
-    .todo-list li button:nth-child(3):hover {
+    .btn-validate:hover {
       background-color: #27ae60;
     }
 
-    .todo-list li button:nth-child(4):disabled {
-      background-color: #95a5a6;
+    .btn-unvalidate {
+      background-color: #f39c12;
     }
 
-    .todo-list li button:nth-child(4) {
+    .btn-unvalidate:hover {
+      background-color: #e67e22;
+    }
+
+    .btn-edit {
+      background-color: #e67e22;
+    }
+
+    .btn-edit:hover {
+      background-color: #d35400;
+    }
+
+    .btn-save {
       background-color: #3498db;
     }
 
-    .todo-list li button:nth-child(4):hover {
+    .btn-save:hover {
       background-color: #2980b9;
     }
 
-    .todo-list li button:nth-child(5) {
+    .btn-delete {
       background-color: #e74c3c;
     }
 
-    .todo-list li button:nth-child(5):hover {
+    .btn-delete:hover {
       background-color: #c0392b;
     }
   `]
@@ -159,17 +178,21 @@ export default class TodoComponent {
 
   constructor(private fb: FormBuilder) {
     this.todoForm = this.fb.group({
-      title: ['', Validators.required]
+      title: ['', Validators.required],
+      dueDate: ['', Validators.required],
+      dueTime: ['', Validators.required]
     });
   }
 
   addTodo() {
     if (this.todoForm.valid) {
+      const dueDate = new Date(this.todoForm.value.dueDate + 'T' + this.todoForm.value.dueTime);
       this.todos.push({
         id: this.nextId++,
         title: this.todoForm.value.title,
         completed: false,
-        editable: false
+        editable: false,
+        dueDate: dueDate
       });
       this.todoForm.reset();
     }
