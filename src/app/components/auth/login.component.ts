@@ -27,7 +27,7 @@ import { ToolbarModule } from '../shared/toolbar.component';
             Le mot de passe est requis.
           </div>
         </div>
-        <button type="submit" class="login-btn" [disabled]="loginForm.invalid">Se connecter</button>
+        <button type="submit" class="login-btn" [routerLink]="['/todos']" [disabled]="loginForm.invalid">Se connecter</button>
       </form>
       <a routerLink="/register" class="register-link">Pas encore inscrit ? Créez un compte</a>
     </div>

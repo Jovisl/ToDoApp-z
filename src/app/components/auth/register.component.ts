@@ -37,7 +37,7 @@ import { ToolbarModule } from '../shared/toolbar.component';
             Les mots de passe ne correspondent pas.
           </div>
         </div>
-        <button type="submit" class="register-btn" [disabled]="registerForm.invalid">S'inscrire</button>
+        <button type="submit" class="register-btn" [routerLink]="['/login']" [disabled]="registerForm.invalid">S'inscrire</button>
       </form>
       <a routerLink="/login" class="login-link">Déjà inscrit ? Connectez-vous</a>
     </div>
