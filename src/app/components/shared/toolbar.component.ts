@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+
+import { Component, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-toolbar',
@@ -58,14 +58,7 @@ import { RouterModule } from '@angular/router';
   `]
 })
 export class ToolbarComponent {
-  @Input() isLoginBtnShown!: boolean;
-  @Input() isRegisterBtnShown!: boolean;
-  @Input() isLogoutBtnShown!: boolean;
+  @Input() isLoginBtnShown: boolean = false;
+  @Input() isRegisterBtnShown: boolean = false;
+  @Input() isLogoutBtnShown: boolean = false;
 }
-
-@NgModule({
-  declarations: [ToolbarComponent],
-  imports: [CommonModule, RouterModule],
-  exports: [ToolbarComponent]
-})
-export class ToolbarModule {}

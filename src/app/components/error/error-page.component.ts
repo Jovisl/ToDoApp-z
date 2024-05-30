@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { ErrorMessagePipe } from '../../pipe/error-message.pipe';
+
 
 @Component({
   selector: 'app-error-page',
-  standalone: true,
-  imports: [CommonModule, RouterModule, ErrorMessagePipe],
   template: `
     <div class="error-container">
       <h1>Erreur</h1>

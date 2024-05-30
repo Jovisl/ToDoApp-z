@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToolbarModule } from '../shared/toolbar.component';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+
+
 
 interface Todo {
   id: number;
@@ -13,10 +14,12 @@ interface Todo {
 
 @Component({
   selector: 'app-todo',
-  standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ToolbarModule],
   template: `
-    <app-toolbar [isLogoutBtnShown]="true"></app-toolbar>
+    <app-toolbar 
+  [isLoginBtnShown]="true" 
+  [isRegisterBtnShown]="true" 
+  [isLogoutBtnShown]="false">
+</app-toolbar>
     <div class="todo-container">
       <h2>Mes Tâches</h2>
       <form [formGroup]="todoForm" (ngSubmit)="addTodo()">
@@ -28,7 +31,7 @@ interface Todo {
       <ul class="todo-list">
         <li *ngFor="let todo of todos" [class.completed]="todo.completed">
           <span *ngIf="!todo.editable">{{ todo.title }} - {{ todo.dueDate | date:'short' }}</span>
-          <input *ngIf="todo.editable" [(ngModel)]="todo.title" />
+          <input *ngIf="todo.editable" [formControl]="editableTitle" />
           <button *ngIf="!todo.completed && !todo.editable" (click)="markAsCompleted(todo)" class="btn-validate">Finito</button>
           <button *ngIf="todo.completed && !todo.editable" (click)="unmarkAsCompleted(todo)" class="btn-unvalidate">Pas finito</button>
           <button *ngIf="!todo.editable" (click)="toggleEditable(todo)" class="btn-edit">Modifier</button>
@@ -175,12 +178,14 @@ export default class TodoComponent {
   todoForm: FormGroup;
   todos: Todo[] = [];
   nextId = 1;
+  editableTitle: FormControl = new FormControl('');
 
   constructor(private fb: FormBuilder) {
     this.todoForm = this.fb.group({
       title: ['', Validators.required],
       dueDate: ['', Validators.required],
-      dueTime: ['', Validators.required]
+      dueTime: ['', Validators.required],
+      editableTitle: this.editableTitle
     });
   }
 
@@ -208,9 +213,11 @@ export default class TodoComponent {
 
   toggleEditable(todo: Todo) {
     todo.editable = true;
+    this.editableTitle.setValue(todo.title);
   }
 
   saveChanges(todo: Todo) {
+    todo.title = this.editableTitle.value;
     todo.editable = false;
   }
 

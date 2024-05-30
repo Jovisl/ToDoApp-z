@@ -2,12 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ToolbarModule } from '../shared/toolbar.component';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, ToolbarModule],
   template: `
     <app-toolbar [isLoginBtnShown]="false" [isRegisterBtnShown]="true" [isLogoutBtnShown]="false"></app-toolbar>
     <div class="login-container">
