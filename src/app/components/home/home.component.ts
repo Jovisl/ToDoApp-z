@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
       <h1>Bienvenue sur TodoAppZ</h1>
       <p>Cette application est conçue pour vous aider à gérer vos tâches quotidiennes de manière efficace.</p>
       <p>Vous pouvez vous connecter ou vous inscrire pour commencer à utiliser l'application.</p>
-      <app-cat-picture></app-cat-picture> 
     </div>
   `,
   styles: [`

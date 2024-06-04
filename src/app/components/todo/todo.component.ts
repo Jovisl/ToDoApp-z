@@ -16,9 +16,9 @@ interface Todo {
   selector: 'app-todo',
   template: `
     <app-toolbar 
-  [isLoginBtnShown]="true" 
-  [isRegisterBtnShown]="true" 
-  [isLogoutBtnShown]="false">
+  [isLoginBtnShown]="false" 
+  [isRegisterBtnShown]="false" 
+  [isLogoutBtnShown]="true">
 </app-toolbar>
     <div class="todo-container">
       <h2>Mes Tâches</h2>
@@ -37,6 +37,7 @@ interface Todo {
           <button *ngIf="!todo.editable" (click)="toggleEditable(todo)" class="btn-edit">Modifier</button>
           <button *ngIf="todo.editable" (click)="saveChanges(todo)" class="btn-save">Enregistrer</button>
           <button (click)="deleteTodo(todo.id)" class="btn-delete">Supprimer</button>
+          <app-cat-picture *ngIf="todo.completed"></app-cat-picture>
         </li>
       </ul>
     </div>
