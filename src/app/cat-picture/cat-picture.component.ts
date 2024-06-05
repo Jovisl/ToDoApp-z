@@ -6,7 +6,9 @@ import { CatService } from '../cat.service';
   template: `
     <div class="cat-container">
       <h2>Random Cat Picture</h2>
-      <button (click)="fetchCat()">Get a new cat picture</button>
+      <div class="button-container">
+        <button (click)="fetchCat()">Get a new cat picture</button>
+      </div>
       <div *ngIf="catUrl" class="cat-image">
         <img [src]="catUrl" alt="Random Cat" />
       </div>
@@ -18,9 +20,13 @@ import { CatService } from '../cat.service';
         text-align: center;
         margin: 20px;
       }
+      .button-container {
+        margin-bottom: 20px;
+      }
       .cat-image img {
-        max-width: 100%;
-        height: auto;
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
